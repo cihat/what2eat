@@ -1,7 +1,8 @@
 <script>
-import { useAccountStore } from '@/store';
 import { router } from '@/router';
+import { useAccountStore } from '@/store';
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
 import { computed, defineComponent, reactive, ref } from 'vue';
 
 export default defineComponent({
@@ -22,16 +23,21 @@ export default defineComponent({
       backendError.value = null
       try {
         await accountStore.login(values)
+        message.success('Login successful 🎉')
         router.push({ path: '/' })
       } catch (error) {
         backendError.value = error?.response?.data?.message ?
           error?.response?.data?.message :
           error?.message
+
+        message.error(backendError.value)
+      } finally {
+        accountStore.fetchUser()
       }
     };
 
     const onFinishFailed = errorInfo => {
-      console.log('Failed:', errorInfo);
+      message.error(errorInfo)
     };
 
     const disabled = computed(() => {
@@ -72,7 +78,7 @@ export default defineComponent({
       </a-form-item>
       <a-form-item :label-col="{span: 8}" :wrapper-col="{span: 32}">
         <a-button :disabled="disabled" type="primary" html-type="submit" class="login-form-button"> Log in </a-button>
-        <span v-if="backendError" class="error_message">{{ backendError }}</span>
+        <!-- <span v-if="backendError" class="error_message">{{ backendError }}</span> -->
         <a-divider style="border-color: #000" dashed />
         <div class="container">I havent registered yet. &nbsp;<a href="/register">register now!</a></div>
       </a-form-item>

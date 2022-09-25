@@ -1,4 +1,5 @@
 // import axios from "axios"
+import axios from "axios"
 import { defineStore } from "pinia"
 import http from "../helpers/axios/Axios"
 import { store } from "./"
@@ -19,12 +20,15 @@ const useAccountStore = defineStore("account", {
       http.requestData("POST", "/account/register", {user}).catch(err => err)
     },
     async login(credentials) {
-      const user = await http
-        .requestData("POST", "/account/session", credentials)
-        .then(res => (this.user = res.data))
-        .catch(err => err)
+      // const user = await http
+      //   .requestData("POST", "/account/session", credentials)
+      //   .then(res => (this.user = res.data))
+      //   .catch(err => err)
+      
+      const user = await axios.post("/account/session", credentials)
 
-      localStorage.setItem("user", JSON.stringify(user.data))
+      this.user = user
+
     },
     async logout() {
       http

@@ -1,5 +1,6 @@
 <script>
 import { useAccountStore } from '@/store';
+import { message } from 'ant-design-vue';
 import { mapActions, mapState } from 'pinia';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     ...mapActions(useAccountStore, ["logout"]),
     async doLogout() {
       await this.logout()
+      message.success('Logout successful 🎉✅🎉')
       this.$router.push("/")
     },
   },
@@ -29,16 +31,17 @@ export default {
               <router-link to="/">Boiler Plate</router-link><span>BETA</span>
             </div>
           </a-col>
-          <a-col>
+          <a-col class="navigation">
             <a-menu v-if="user" theme="light" :selectedKeys="selectedKeys" mode="horizontal"
-              :style="{lineHeight: '64px'}" inlineCollapsed="false">
+              :style="{lineHeight: '64px'}" inlineCollapsed="false" ellipsize={false} class="nav-list">
               <a-menu-item key="register">
-                <router-link :to="`/profile/${user._id}`" >{{ user.username }}
+                <router-link :to="`/profile/${user._id}`" v-if="user.username">
+                  {{ user.username }}
                 </router-link>
               </a-menu-item>
-              <a-menu-item key="logout" @click="doLogout">Log out</a-menu-item>
+              <a-menu-item v-if="user" key="logout" @click="doLogout">Log out</a-menu-item>
             </a-menu>
-            <a-menu v-else mode="horizontal">
+            <a-menu v-else mode="horizontal" class="nav-list">
               <a-menu-item key="login">
                 <router-link to="/login">Log in</router-link>
               </a-menu-item>
@@ -119,6 +122,23 @@ body {
 
     @media (max-width: 576px) {
       padding: 1em;
+    }
+  }
+
+  .navigation {
+    flex-grow: 2;
+
+    .nav-list {
+      justify-content: flex-end;
+
+      li {
+        span {
+          display: block;
+          a {
+            display: block;
+          }
+        }
+      }
     }
   }
 }
