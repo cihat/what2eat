@@ -5,8 +5,6 @@ import { defineComponent } from "vue";
 import SubHeader from "../components/sub-header.vue";
 import UserPreview from "../components/user-preview.vue";
 
-
-
 export default defineComponent({
   name: "profile-view",
   components: {
