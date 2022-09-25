@@ -1,0 +1,10 @@
+{
+  "name": "boilerplate",
+  "version": "0.0.0",
+  "description": "A full-stack JavaScript application using Express, MongoDB, Docker, Jest, and Vue",
+  "license": "MIT",
+  "workspaces": [
+    "./packages/backend",
+    "./packages/frontend"
+  ]
+}
