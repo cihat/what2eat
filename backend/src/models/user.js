@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 const passportLocalMongoose = require('passport-local-mongoose')
+// const emailVerification = require('../lib/email/email-verification-plugin')
 
 const { Schema } = mongoose
 
@@ -27,6 +28,8 @@ userSchema.plugin(passportLocalMongoose, {
   passwordField: 'password',
   populateFields: ['name, sessionId'],
 })
+
+// userSchema.plugin(emailVerification)
 
 userSchema.plugin(autopopulate)
 

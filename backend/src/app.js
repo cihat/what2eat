@@ -5,18 +5,23 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const cors = require('cors')
+const helmet = require('helmet')
 const session = require('express-session')
 const passport = require('passport')
 const MongoStore = require('connect-mongo')(session)
 const { sanitize } = require('express-mongo-sanitize')
+const compression = require('compression')
 const { errors } = require('celebrate')
 const User = require('./models/user')
-const mongooseConnection = require('./database-connection')
+const { mongooseConnection } = require('./database-connection')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 
 const app = express()
+
+app.use(helmet())
+app.use(compression())
 
 app.use(
   cors({
@@ -77,7 +82,7 @@ app.use((req, res, next) => {
 app.use(errors())
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   const error = {
     status: err.status || 500,
     message: err.message,

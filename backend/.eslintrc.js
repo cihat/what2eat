@@ -22,12 +22,16 @@ module.exports = {
     'no-unused-vars': ['warn'],
     'prefer-template': ['warn'],
     'class-methods-use-this': ['warn', { exceptMethods: ['profile'], enforceForClassFields: true }],
-    'func-names': ['warn', 'as-needed'],
+    // 'func-names': ['warn', 'as-needed'],
     'prefer-const': ['warn'],
     eqeqeq: 0,
     'consistent-return': 0,
     'no-return-await': 0,
     'no-underscore-dangle': 0,
+    'func-names': 0,
+    'no-param-reassign': 0,
+    'no-multi-assign': 0,
+    'no-shadow': 0,
     'prettier/prettier': [
       'error',
       {

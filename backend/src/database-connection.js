@@ -14,4 +14,4 @@ mongoose
   .then(() => console.log('Database connection established successfully. 🎉'))
   .catch(error => console.log('not connected:', error))
 
-module.exports = mongoose.connection
+module.exports = { mongooseConnection: mongoose.connection, mongoose }
