@@ -2,22 +2,22 @@ const Validator = require('async-validator').default
 const User = require('../models/user')
 const { userService } = require('../services')
 
-exports.isEmailVerified = async (req, res, next) => {
-  const isVerified = await User.exists({
-    email: req.body.email,
-    isVerified: true,
-  })
+// exports.isEmailVerified = async (req, res, next) => {
+//   const isVerified = await User.exists({
+//     email: req.body.email,
+//     isVerified: true,
+//   })
 
-  if (!isVerified) {
-    return res.status(403).send({
-      type: 'verification-required',
-      email: req.body.email,
-      message: 'Please make sure you have verified your email.',
-    })
-  }
+//   if (!isVerified) {
+//     return res.status(403).send({
+//       type: 'verification-required',
+//       email: req.body.email,
+//       message: 'Please make sure you have verified your email.',
+//     })
+//   }
 
-  next()
-}
+//   next()
+// }
 
 exports.register = async (req, res, next) => {
   const descriptor = {

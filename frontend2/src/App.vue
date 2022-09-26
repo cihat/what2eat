@@ -46,20 +46,20 @@ export default {
   },
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
-    ...mapActions('account', ['init']),
-    ...mapGetters('account', ['isLoggedIn']),
+    ...mapActions("account", ["init"]),
+    ...mapGetters("account", ["isLoggedIn"]),
   },
   created() {
-    this.init();
-    !this.isLoggedIn ? this.$router.push({ path: '/sign-in' }) : this.$router.push({ path: '/' })
+    // this.init();
+    // !this.isLoggedIn ? this.$router.push({ path: '/sign-in' }) : this.$router.push({ path: '/' })
   },
   computed: {
     navClasses() {
       return {
-        "position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky": this
-          .$store.state.isNavFixed,
-        "position-absolute px-4 mx-0 w-100 z-index-2": this.$store.state
-          .isAbsolute,
+        "position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky":
+          this.$store.state.isNavFixed,
+        "position-absolute px-4 mx-0 w-100 z-index-2":
+          this.$store.state.isAbsolute,
         "px-0 mx-4 mt-4": !this.$store.state.isAbsolute,
       };
     },

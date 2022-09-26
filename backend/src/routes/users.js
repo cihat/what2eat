@@ -25,51 +25,51 @@ router.post(
   userController.register
 )
 
-router.get(
-  '/email-verification',
-  // rateLimiter({ points: 5, duration: 15 * 60 }),
-  async (req, res, next) => {
-    if (!req.query.token) return next({ status: 400 })
+// router.get(
+//   '/email-verification',
+//   // rateLimiter({ points: 5, duration: 15 * 60 }),
+//   async (req, res, next) => {
+//     if (!req.query.token) return next({ status: 400 })
 
-    try {
-      await User.verifyEmailByToken(req.query.token)
-    } catch (e) {
-      return res.redirect(`${process.env.FRONTEND_BASE_PATH}/login?verifyFail=1`)
-    }
+//     try {
+//       await User.verifyEmailByToken(req.query.token)
+//     } catch (e) {
+//       return res.redirect(`${process.env.FRONTEND_BASE_PATH}/login?verifyFail=1`)
+//     }
 
-    res.redirect(`${process.env.FRONTEND_BASE_PATH}/login?verifySuccess=1`)
-  }
-)
+//     res.redirect(`${process.env.FRONTEND_BASE_PATH}/login?verifySuccess=1`)
+//   }
+// )
 
-router.post(
-  '/outgoing-verification-emails',
-  rateLimiter({
-    points: 1,
-    duration: 2 * 60,
-    message: 'You can only attempt to send email once every 2 minutes.',
-  }),
-  async (req, res, next) => {
-    if (!req.body.email) return next({ status: 400 })
+// router.post(
+//   '/outgoing-verification-emails',
+//   rateLimiter({
+//     points: 1,
+//     duration: 2 * 60,
+//     message: 'You can only attempt to send email once every 2 minutes.',
+//   }),
+//   async (req, res, next) => {
+//     if (!req.body.email) return next({ status: 400 })
 
-    const user = await User.findOne({
-      email: req.body.email,
-      isVerified: false,
-    })
+//     const user = await User.findOne({
+//       email: req.body.email,
+//       isVerified: false,
+//     })
 
-    if (!user) return next({ status: 422 })
+//     if (!user) return next({ status: 422 })
 
-    await user.sendVerificationEmail()
+//     await user.sendVerificationEmail()
 
-    res.sendStatus(200)
-  }
-)
+//     res.sendStatus(200)
+//   }
+// )
 
 // Login
 router.post(
   '/session',
   // rateLimiter({ points: 10, duration: 30 * 60 }),
   preventLoginForLoggedInUsers,
-  userController.isEmailVerified,
+  // userController.isEmailVerified,
   passport.authenticate('local', {
     failWithError: true,
   }),
