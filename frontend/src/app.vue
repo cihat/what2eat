@@ -1,5 +1,15 @@
-<script>
-  import { useAccountStore } from '@/store';
+<script setup>
+  import { RouterView } from "vue-router";
+  </script>
+  
+  <template>
+    <RouterView />
+  </template>
+  
+
+
+<!-- <script>
+  import { useAccountStore } from '@/stores';
 import { message } from 'ant-design-vue';
 import { mapActions, mapState } from 'pinia';
   export default {
@@ -127,4 +137,4 @@ import { mapActions, mapState } from 'pinia';
       }
     }
   }
-  </style>
+  </style> -->

@@ -1,10 +1,17 @@
-import antd from "ant-design-vue"
-import "ant-design-vue/dist/antd.css"
+import antd from "ant-design-vue";
+// import "ant-design-vue/dist/antd.css";
 
-import { createApp } from "vue"
-import App from "./app.vue"
-import { router } from "./router"
-import setupStore, { storeInit } from "./store"
+import { darkModeKey, styleKey } from "@/config.js";
+import { useMainStore } from "@/stores/main.js";
+import { useStyleStore } from "@/stores/style.js";
+
+import "./css/main.css";
+
+
+import { createApp } from "vue";
+import App from "./app.vue";
+import router from "./router";
+import setupStore, { storeInit } from "./stores";
 // import './assets/main.css'
 
 const app = createApp(App)
@@ -15,3 +22,33 @@ app.use(antd)
 app.mount("#app")
 
 storeInit()
+
+/* Init Pinia stores */
+const mainStore = useMainStore(pinia);
+const styleStore = useStyleStore(pinia);
+
+/* Fetch sample data */
+mainStore.fetch("clients");
+mainStore.fetch("history");
+
+/* App style */
+styleStore.setStyle(localStorage[styleKey] ?? "basic");
+
+/* Dark mode */
+if (
+  (!localStorage[darkModeKey] &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+  localStorage[darkModeKey] === "1"
+) {
+  styleStore.setDarkMode(true);
+}
+
+/* Default title tag */
+const defaultDocumentTitle = "Admin One Vue 3 Tailwind";
+
+/* Set document title from route meta */
+router.afterEach((to) => {
+  document.title = to.meta?.title
+    ? `${to.meta.title} — ${defaultDocumentTitle}`
+    : defaultDocumentTitle;
+});

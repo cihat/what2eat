@@ -1,5 +1,5 @@
 <script>
-import { useAccountStore } from '@/store';
+import { useAccountStore } from '@/stores';
 import { mapState } from 'pinia';
 import { defineComponent } from "vue";
 import SubHeader from "@/components/sub-header.vue";
