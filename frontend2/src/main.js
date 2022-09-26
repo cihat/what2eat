@@ -17,12 +17,19 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
+import "vue-toastification/dist/index.css";
 import router from "./router";
 import SoftUIDashboard from "./soft-ui-dashboard";
+import Toast from "vue-toastification";
 import store from "./store";
+
+const options = {
+  // You can set your default options here
+};
 
 const appInstance = createApp(App);
 appInstance.use(store);
 appInstance.use(router);
 appInstance.use(SoftUIDashboard);
+appInstance.use(Toast, options);
 appInstance.mount("#app");
