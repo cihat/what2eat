@@ -1,115 +1,90 @@
-import Billing from "@/views/Billing.vue";
-import Dashboard from "@/views/Dashboard.vue";
-import Profile from "@/views/Profile.vue";
-import Rtl from "@/views/Rtl.vue";
-import SignIn from "@/views/SignIn.vue";
-import SignUp from "@/views/SignUp.vue";
-import Tables from "@/views/Tables.vue";
-import VirtualReality from "@/views/VirtualReality.vue";
-import { createRouter, createWebHistory } from "vue-router";
-import store from "../store";
+import { createRouter, createWebHashHistory } from "vue-router";
+import Style from "@/views/StyleView.vue";
+import Home from "@/views/HomeView.vue";
 
 const routes = [
   {
-    path: "/:pathMatch(.*)*",
-    component: import("../views/not-found-view.vue"),
-  },
-  {
+    meta: {
+      title: "Select style",
+    },
     path: "/",
-    name: "/",
-    meta: { layout: "dashboard" },
-    redirect: "/dashboard",
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
+    name: "style",
+    component: Style,
   },
   {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: "Dashboard",
+    },
     path: "/dashboard",
-    name: "Dashboard",
-    meta: { layout: "dashboard" },
-    component: Dashboard,
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
+    name: "dashboard",
+    component: Home,
   },
   {
+    meta: {
+      title: "Tables",
+    },
     path: "/tables",
-    name: "Tables",
-    meta: { layout: "dashboard" },
-    component: Tables,
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
+    name: "tables",
+    component: () => import("@/views/TablesView.vue"),
   },
   {
-    path: "/billing",
-    name: "Billing",
-    meta: { layout: "dashboard" },
-    component: Billing,
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
+    meta: {
+      title: "Forms",
+    },
+    path: "/forms",
+    name: "forms",
+    component: () => import("@/views/FormsView.vue"),
   },
   {
-    path: "/virtual-reality",
-    name: "Virtual Reality",
-    meta: { layout: "dashboard" },
-    component: VirtualReality,
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
-  },
-  {
+    meta: {
+      title: "Profile",
+    },
     path: "/profile",
-    name: "Profile",
-    meta: { layout: "dashboard" },
-    component: Profile,
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
+    name: "profile",
+    component: () => import("@/views/ProfileView.vue"),
   },
   {
-    path: "/rtl-page",
-    name: "Rtl",
-    meta: { layout: "dashboard" },
-    component: Rtl,
-    // beforeEnter(to, from, next) {
-    //   if (!store.state.account.user) return next("/sign-in");
-    //   return next();
-    // },
+    meta: {
+      title: "Ui",
+    },
+    path: "/ui",
+    name: "ui",
+    component: () => import("@/views/UiView.vue"),
   },
   {
-    path: "/sign-in",
-    name: "Sign In",
-    meta: { layout: "auth" },
-    component: SignIn,
-    // beforeEnter(to, from, next) {
-    //   if (store.state.account.user) return next("/dashboard");
-    //   return next();
-    // },
+    meta: {
+      title: "Responsive layout",
+    },
+    path: "/responsive",
+    name: "responsive",
+    component: () => import("@/views/ResponsiveView.vue"),
   },
   {
-    path: "/sign-up",
-    name: "Sign Up",
-    meta: { layout: "auth" },
-    component: SignUp,
-    // beforeEnter(to, from, next) {
-    //   if (store.state.account.user) return next("/dashboard");
-    //   return next();
-    // },
+    meta: {
+      title: "Login",
+    },
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/LoginView.vue"),
+  },
+  {
+    meta: {
+      title: "Error",
+    },
+    path: "/error",
+    name: "error",
+    component: () => import("@/views/ErrorView.vue"),
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes,
-  linkActiveClass: "active",
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || { top: 0 };
+  },
 });
 
 export default router;

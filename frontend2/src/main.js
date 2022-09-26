@@ -1,35 +1,46 @@
-/**
-=========================================================
-* Vue Soft UI Dashboard - v3.0.0
-=========================================================
-
-* Product Page: https://creative-tim.com/product/vue-soft-ui-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { createApp } from "vue";
+import { createPinia } from "pinia";
+
 import App from "./App.vue";
-import "./assets/css/nucleo-icons.css";
-import "./assets/css/nucleo-svg.css";
-import "vue-toastification/dist/index.css";
 import router from "./router";
-import SoftUIDashboard from "./soft-ui-dashboard";
-import Toast from "vue-toastification";
-import store from "./store";
+import { useMainStore } from "@/stores/main.js";
+import { useStyleStore } from "@/stores/style.js";
+import { darkModeKey, styleKey } from "@/config.js";
 
-const options = {
-  // You can set your default options here
-};
+import "./css/main.css";
 
-const appInstance = createApp(App);
-appInstance.use(store);
-appInstance.use(router);
-appInstance.use(SoftUIDashboard);
-appInstance.use(Toast, options);
-appInstance.mount("#app");
+/* Init Pinia */
+const pinia = createPinia();
+
+/* Create Vue app */
+createApp(App).use(router).use(pinia).mount("#app");
+
+/* Init Pinia stores */
+const mainStore = useMainStore(pinia);
+const styleStore = useStyleStore(pinia);
+
+/* Fetch sample data */
+mainStore.fetch("clients");
+mainStore.fetch("history");
+
+/* App style */
+styleStore.setStyle(localStorage[styleKey] ?? "basic");
+
+/* Dark mode */
+if (
+  (!localStorage[darkModeKey] &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+  localStorage[darkModeKey] === "1"
+) {
+  styleStore.setDarkMode(true);
+}
+
+/* Default title tag */
+const defaultDocumentTitle = "Admin One Vue 3 Tailwind";
+
+/* Set document title from route meta */
+router.afterEach((to) => {
+  document.title = to.meta?.title
+    ? `${to.meta.title} — ${defaultDocumentTitle}`
+    : defaultDocumentTitle;
+});
