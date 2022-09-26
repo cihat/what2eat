@@ -11,7 +11,7 @@
         v-bind="$attrs"
         :class="isBlur ? 'text-dark' : 'text-white'"
       >
-        Soft UI Dashboard
+        What to Eat
       </router-link>
       <button
         class="navbar-toggler shadow-none ms-2"
@@ -30,7 +30,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="user">
             <router-link
               class="nav-link d-flex align-items-center me-2 active"
               aria-current="page"
@@ -44,7 +44,7 @@
               Dashboard
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="user">
             <router-link class="nav-link me-2" to="/profile">
               <i
                 class="fa fa-user opacity-6 me-1"
@@ -64,7 +64,7 @@
               Sign Up
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" >
             <router-link class="nav-link me-2" to="/sign-in">
               <i
                 class="fas fa-key opacity-6 me-1"
@@ -77,12 +77,12 @@
         </ul>
         <ul class="navbar-nav d-lg-block d-none">
           <li class="nav-item">
-            <a
+            <!-- <a
               href="https://www.creative-tim.com/product/vue-soft-ui-dashboard"
               class="btn btn-sm btn-round mb-0 me-1"
               :class="isBlur ? 'bg-gradient-dark' : 'bg-gradient-success'"
               >Free download</a
-            >
+            > -->
           </li>
         </ul>
       </div>
@@ -92,8 +92,10 @@
 </template>
 
 <script>
-import downArrWhite from "@/assets/img/down-arrow-white.svg";
 import downArrBlack from "@/assets/img/down-arrow-dark.svg";
+import downArrWhite from "@/assets/img/down-arrow-white.svg";
+
+import { mapState } from "vuex";
 
 export default {
   name: "navbar",
@@ -112,6 +114,7 @@ export default {
     },
   },
   computed: {
+    ...mapState('account', ['user']),
     darkModes() {
       return {
         "text-dark": this.darkMode,

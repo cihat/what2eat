@@ -30,7 +30,7 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-flex align-items-center">
+          <li class="nav-item d-flex align-items-center" @click="handleLogout()">
             <router-link
               :to="{ name: 'Sign In' }"
               class="px-0 nav-link font-weight-bold"
@@ -40,10 +40,7 @@
                 class="fa fa-user"
                 :class="this.$store.state.isRTL ? 'ms-sm-2' : 'me-sm-1'"
               ></i>
-              <span v-if="this.$store.state.isRTL" class="d-sm-inline d-none"
-                >يسجل دخول</span
-              >
-              <span v-else class="d-sm-inline d-none">Sign In </span>
+              <span class="d-sm-inline d-none">Sign Out </span>
             </router-link>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -201,15 +198,22 @@
   </nav>
 </template>
 <script>
+import { useToast } from "vue-toastification";
+import { mapActions, mapMutations, mapState } from "vuex";
 import Breadcrumbs from "../Breadcrumbs.vue";
-import { mapMutations, mapActions } from "vuex";
+
+const toast = useToast()
 
 export default {
   name: "navbar",
   data() {
     return {
       showMenu: false,
+      backendError: ''
     };
+  },
+  computed: {
+    ...mapState("account", ['user'])
   },
   props: ["minNav", "textWhite"],
   created() {
@@ -218,11 +222,22 @@ export default {
   methods: {
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),
     ...mapActions(["toggleSidebarColor"]),
+    ...mapActions('account', ['logout']),
 
     toggleSidebar() {
       this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
     },
+    async handleLogout() {
+      try {
+        await this.logout()
+      } catch (error) {
+        this.backendError = error.response.message ? error.response.message : error.response.data.message
+        toast.error(this.backendError || 'Something went wrong')
+      } finally {
+        this.$router.push({ path: '/sign-in' })
+      }
+    }
   },
   components: {
     Breadcrumbs,

@@ -24,13 +24,15 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" class="text-start">
+                  <form @submit="signIn" role="form" class="text-start" >
                     <label>Email</label>
                     <soft-input
                       id="email"
                       type="email"
                       placeholder="Email"
                       name="email"
+                      :value="email"
+                      @input="email = $event.target.value"
                     />
                     <label>Password</label>
                     <soft-input
@@ -38,16 +40,20 @@
                       type="password"
                       placeholder="Password"
                       name="password"
+                      :value="password"
+                      @input="password = $event.target.value"
                     />
-                    <soft-switch id="rememberMe" name="rememberMe" checked>
+                    <!-- <soft-switch id="rememberMe" name="rememberMe" checked>
                       Remember me
-                    </soft-switch>
+                    </soft-switch> -->
                     <div class="text-center">
                       <soft-button
                         class="my-4 mb-2"
                         variant="gradient"
                         color="success"
                         full-width
+                        html-type="submit"
+                        block
                         >Sign in
                       </soft-button>
                     </div>
@@ -89,16 +95,27 @@
 </template>
 
 <script>
-import Navbar from "@/examples/PageLayout/Navbar.vue";
-import AppFooter from "@/examples/PageLayout/Footer.vue";
+import SoftButton from "@/components/SoftButton.vue";
 import SoftInput from "@/components/SoftInput.vue";
 import SoftSwitch from "@/components/SoftSwitch.vue";
-import SoftButton from "@/components/SoftButton.vue";
+import AppFooter from "@/examples/PageLayout/Footer.vue";
+import Navbar from "@/examples/PageLayout/Navbar.vue";
+import { useToast } from "vue-toastification";
+import { mapActions, mapMutations } from "vuex";
+
 const body = document.getElementsByTagName("body")[0];
-import { mapMutations } from "vuex";
+
+const toast = useToast()
 
 export default {
   name: "SignIn",
+  data() {
+    return {
+      email: "",
+      password: "",
+      backendError: ''
+    };
+  },
   components: {
     Navbar,
     AppFooter,
@@ -118,6 +135,23 @@ export default {
   },
   methods: {
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+    ...mapActions("account", ["login"]),
+    async signIn(e) {
+      e.preventDefault();
+      console.log('user info', this.email, this.password)
+      try {
+        await this.login({
+            email: this.email,
+            password: this.password,
+        });
+        toast.success('Login successful')
+        this.$router.push({ path: "/dashboard" });
+      } catch (error) {
+        this.backendError = error.response.message ? error.response.message : error.response.data.message
+        toast.error(this.backendError || 'Something went wrong')
+      } finally {
+      }
+    },
   },
 };
 </script>
