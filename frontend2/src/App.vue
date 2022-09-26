@@ -34,7 +34,7 @@ import Configurator from "@/examples/Configurator.vue";
 import AppFooter from "@/examples/Footer.vue";
 import Navbar from "@/examples/Navbars/Navbar.vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import Sidenav from "./examples/Sidenav";
+import Sidenav from "@/examples/Sidenav";
 
 export default {
   name: "App",

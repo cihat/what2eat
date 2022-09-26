@@ -2,8 +2,8 @@
 import { useAccountStore } from '@/store';
 import { mapState } from 'pinia';
 import { defineComponent } from "vue";
-import SubHeader from "../components/sub-header.vue";
-import UserPreview from "../components/user-preview.vue";
+import SubHeader from "@/components/sub-header.vue";
+import UserPreview from "@/components/user-preview.vue";
 
 export default defineComponent({
   name: "profile-view",

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 import { createStore } from 'vuex';
+// import createPersistedState from "vuex-persistedstate";
 import account from './account';
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_PATH;
@@ -76,6 +77,7 @@ const store = createStore({
   modules: {
     account,
   },
+  // plugins: [createPersistedState()],
 });
 
 store.dispatch('account/init');

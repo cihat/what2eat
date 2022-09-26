@@ -1,5 +1,4 @@
 import axios from "axios";
-import createPersistedState from "vuex-persistedstate";
 
 const mutations = {
   SET_USER: "setUser",
@@ -68,7 +67,6 @@ const account = {
       commit(mutations.SET_USERS, users.data);
     },
   },
-  plugins: [createPersistedState()],
 };
 
 export default account;
