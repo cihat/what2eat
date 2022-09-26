@@ -9,7 +9,7 @@ const routes = [
     },
     path: "/",
     name: "style",
-    component: Style,
+    component: () => import("@/views/LandingPage.vue"),
   },
   {
     // Document title tag
