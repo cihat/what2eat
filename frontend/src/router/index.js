@@ -1,19 +1,20 @@
-import Home from "@/views/HomeView.vue";
-import Style from "@/views/StyleView.vue";
-import { createRouter, createWebHashHistory } from "vue-router";
+import Home from "@/views/HomeView.vue"
+import {createRouter, createWebHistory} from "vue-router"
 
 const routes = [
   {
+    path: "/:pathMatch(.*)*",
+    component: import("../views/not-found-view.vue"),
+  },
+  {
     meta: {
-      title: "Select style",
+      title: "Landing Page",
     },
     path: "/",
-    name: "style",
+    name: "landing-page",
     component: () => import("@/views/LandingPage.vue"),
   },
   {
-    // Document title tag
-    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
       title: "Dashboard",
     },
@@ -77,20 +78,15 @@ const routes = [
     name: "error",
     component: () => import("@/views/ErrorView.vue"),
   },
-];
+]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
+  mode: "history",
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { top: 0 };
-  },
-});
+})
 
-export default router;
-
-
-
+export default router
 
 // import { useAccountStoreWithout } from "@/stores/account.store"
 // import { createRouter, createWebHistory } from "vue-router"

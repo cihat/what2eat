@@ -1,13 +1,13 @@
 <template>
   <div id="home-page">
-    <Navbar/>
+    <Navbar />
     <Hero />
     <PopularFood ref="sectiono" />
     <ExploreFood ref="sectiono" />
     <Service ref="sectiono" />
     <Testimonial />
     <ContactUs ref="sectiono" />
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
