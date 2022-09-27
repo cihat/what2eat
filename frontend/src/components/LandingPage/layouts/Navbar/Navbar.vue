@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar" :class="navbarBackground">
     <div class="logo-wrap">
-      <h3>What to <span>Eat</span></h3>
+      <a href="/">
+        <h3>What to <span>Eat</span></h3>
+      </a>
     </div>
     <div class="nav-links-wrapper">
       <ul class="nav-links" ref="nav-links">
@@ -20,7 +22,7 @@
       </ul>
       <div class="button-auth">
         <router-link to="/login">Login</router-link>
-        <router-link to="/register">Register</router-link>
+        <router-link to="/dashboard">Dashboard</router-link>
       </div>
       <div class="hamburger" ref="hamburger" @click="toggleSidebar">
         <div></div>

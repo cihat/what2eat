@@ -1,5 +1,5 @@
-import Home from "@/views/HomeView.vue"
-import { createRouter, createWebHistory } from "vue-router"
+import Home from "@/views/HomeView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
@@ -82,9 +82,19 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  // mode: "history",
   routes,
 })
+
+/* Default title tag */
+const defaultDocumentTitle = "What to Eat";
+
+/* Set document title from route meta */
+router.afterEach((to) => {
+  document.title = to.meta?.title
+    ? `${to.meta.title} — ${defaultDocumentTitle}`
+    : defaultDocumentTitle;
+});
+
 
 export default router
 

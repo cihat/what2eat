@@ -4,7 +4,7 @@
     <Hero />
     <PopularFood ref="sectiono" />
     <ExploreFood ref="sectiono" />
-    <Service ref="sectiono" />
+    <!-- <Service ref="sectiono" /> -->
     <Testimonial />
     <ContactUs ref="sectiono" />
     <Footer />
