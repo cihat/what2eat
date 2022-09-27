@@ -1,10 +1,23 @@
 <script setup>
-  import { RouterView } from "vue-router";
-  </script>
+import { RouterView } from "vue-router";
+</script>
   
-  <template>
-    <RouterView />
-  </template>
+<template>
+  <RouterView />
+</template>
+
+<style lang="scss">
+  /* hide scrollbar but allow scrolling */
+body {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+
+body::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+</style>
   
 
 
