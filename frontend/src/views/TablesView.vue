@@ -1,18 +1,17 @@
 <script setup>
-import {
-  mdiMonitorCellphone,
-  mdiTableBorder,
-  mdiTableOff,
-  mdiGithub,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import NotificationBar from "@/components/NotificationBar.vue";
-import TableSampleClients from "@/components/TableSampleClients.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
 import BaseButton from "@/components/BaseButton.vue";
+import CardBox from "@/components/CardBox.vue";
 import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
+import NotificationBar from "@/components/NotificationBar.vue";
+import SectionMain from "@/components/SectionMain.vue";
+import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+import TableSampleClients from "@/components/TableSampleClients.vue";
+import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
+import {
+mdiGithub, mdiMonitorCellphone,
+mdiTableBorder,
+mdiTableOff
+} from "@mdi/js";
 </script>
 
 <template>
@@ -20,7 +19,7 @@ import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
     <SectionMain>
       <SectionTitleLineWithButton :icon="mdiTableBorder" title="Tables" main>
         <BaseButton
-          href="https://github.com/justboil/admin-one-vue-tailwind"
+          href="https://github.com/devalooper/what2eat"
           target="_blank"
           :icon="mdiGithub"
           label="Star on GitHub"

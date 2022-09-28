@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
-import * as styles from "@/styles";
 import { darkModeKey, styleKey } from "@/config";
+import * as styles from "@/styles";
+import { defineStore } from "pinia";
 
 export const useStyleStore = defineStore("style", {
   state: () => ({
@@ -17,7 +17,7 @@ export const useStyleStore = defineStore("style", {
     overlayStyle: "",
 
     /* Dark mode */
-    darkMode: false,
+    darkMode: true,
   }),
   actions: {
     setStyle(payload) {

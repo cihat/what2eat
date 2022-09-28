@@ -50,7 +50,7 @@ const transactionBarItems = computed(() => mainStore.history);
         main
       >
         <BaseButton
-          href="https://github.com/justboil/admin-one-vue-tailwind"
+          href="https://github.com/devalooper/what2eat"
           target="_blank"
           :icon="mdiGithub"
           label="Star on GitHub"

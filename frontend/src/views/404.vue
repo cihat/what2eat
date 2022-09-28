@@ -2,7 +2,7 @@
   <div class="container">
     <a-result status="404" title="404" sub-title="Sorry, the page you visited does not exist.">
       <template #extra>
-        <router-link class="ant-btn ant-btn-primary back-button" to="/">Back Home</router-link>
+        <button class="ant-btn ant-btn-primary back-button" @click="$router.go(-1)">Back Home</button>
       </template>
     </a-result>
   </div>
@@ -14,6 +14,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+
   .back-button {
     background-color: #1890ff;
     border-color: #1890ff;
@@ -21,6 +22,7 @@
     border-radius: 4px;
     margin-top: 10px;
     color: #fff;
+
     &:hover {
       background-color: #40a9ff;
       border-color: #40a9ff;

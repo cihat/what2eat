@@ -1,5 +1,5 @@
-import Home from "@/views/HomeView.vue";
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router"
+import {useAccountStoreWithout} from "../stores/account.store"
 
 const routes = [
   {
@@ -16,11 +16,27 @@ const routes = [
   },
   {
     meta: {
+      title: "Login",
+    },
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/LoginView.vue"),
+  },
+  {
+    meta: {
+      title: "Register",
+    },
+    path: "/register",
+    name: "register",
+    component: () => import("@/views/RegisterView.vue"),
+  },
+  {
+    meta: {
       title: "Dashboard",
     },
     path: "/dashboard",
     name: "dashboard",
-    component: Home,
+    component: import("@/views/HomeView.vue"),
   },
   {
     meta: {
@@ -64,14 +80,6 @@ const routes = [
   },
   {
     meta: {
-      title: "Login",
-    },
-    path: "/login",
-    name: "login",
-    component: () => import("@/views/LoginView.vue"),
-  },
-  {
-    meta: {
       title: "Error",
     },
     path: "/error",
@@ -86,15 +94,22 @@ const router = createRouter({
 })
 
 /* Default title tag */
-const defaultDocumentTitle = "What to Eat";
+const defaultDocumentTitle = "What to Eat"
 
 /* Set document title from route meta */
-router.afterEach((to) => {
-  document.title = to.meta?.title
-    ? `${to.meta.title} — ${defaultDocumentTitle}`
-    : defaultDocumentTitle;
-});
+router.afterEach(to => {
+  document.title = to.meta?.title ? `${to.meta.title} — ${defaultDocumentTitle}` : defaultDocumentTitle
+})
 
+router.beforeEach(async to => {
+  const publicPages = ["/", "/login", "/register"]
+  console.log("path", to.path)
+  const authRequired = !publicPages.includes(to.path)
+  const accountStore = useAccountStoreWithout()
+
+  if (authRequired && !accountStore.user) return router.push("/")
+  else if (!authRequired && accountStore.user) return router.push("/dashboard")
+})
 
 export default router
 
@@ -134,15 +149,6 @@ export default router
 //       component: import("../views/not-found-view.vue"),
 //     },
 //   ],
-// })
-
-// router.beforeEach(async to => {
-//   const publicPages = ["/login", "/register"]
-//   const authRequired = !publicPages.includes(to.path)
-//   const accountStore = useAccountStoreWithout()
-
-//   if (authRequired && !accountStore.user) return router.push("/login")
-//   else if (!authRequired && accountStore.user) return router.push("/dashboard")
 // })
 
 // export { router }

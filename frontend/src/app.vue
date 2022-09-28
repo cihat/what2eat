@@ -29,7 +29,7 @@ import { mapActions, mapState } from 'pinia';
     name: "App",
     computed: {
       ...mapState(useAccountStore, ["user"]),
-      selectedKeys() {
+      selectedKeys() {T
         return [this.$route?.name]
       },
     },

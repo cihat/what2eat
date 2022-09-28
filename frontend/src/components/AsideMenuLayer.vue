@@ -1,10 +1,10 @@
 <script setup>
-import { mdiLogout, mdiClose } from "@mdi/js";
-import { computed } from "vue";
-import { useStyleStore } from "@/stores/style.js";
-import AsideMenuList from "@/components/AsideMenuList.vue";
 import AsideMenuItem from "@/components/AsideMenuItem.vue";
+import AsideMenuList from "@/components/AsideMenuList.vue";
 import BaseIcon from "@/components/BaseIcon.vue";
+import { useStyleStore } from "@/stores/style.js";
+import { mdiClose, mdiLogout } from "@mdi/js";
+import { computed } from "vue";
 
 defineProps({
   menu: {
@@ -49,7 +49,7 @@ const asideLgCloseClick = (event) => {
         <div
           class="text-center flex-1 lg:text-left lg:pl-6 xl:text-center xl:pl-0"
         >
-          <b class="font-black">One</b>
+          <b class="font-black">What to Eat</b>
         </div>
         <button
           class="hidden lg:inline-block xl:hidden p-3"

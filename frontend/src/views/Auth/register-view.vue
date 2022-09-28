@@ -1,9 +1,9 @@
 <script>
-import { router } from '@/router';
 import { useAccountStore } from '@/stores';
 import { LockOutlined, UserOutlined } from "@ant-design/icons-vue";
 import { message } from 'ant-design-vue';
 import { computed, defineComponent, reactive, ref } from 'vue';
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -22,6 +22,7 @@ export default defineComponent({
 
     let backendError = ref('');
     const accountStore = useAccountStore()
+    const router = useRouter();
 
     const onFinish = async (values) => {
       backendError.value = null
