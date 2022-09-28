@@ -22,7 +22,7 @@
       </ul>
       <div class="button-auth">
         <router-link to="/login">Login</router-link>
-        <router-link to="/dashboard">Dashboard</router-link>
+        <!-- <router-link to="/dashboard">Dashboard</router-link> -->
       </div>
       <div class="hamburger" ref="hamburger" @click="toggleSidebar">
         <div></div>
