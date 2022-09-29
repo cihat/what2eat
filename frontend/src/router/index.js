@@ -36,13 +36,27 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach(async to => {
-  const publicPages = ["/login", "/register"]
-  const authRequired = !publicPages.includes(to.path)
+router.beforeEach(async (to, from) => {
   const accountStore = useAccountStoreWithout()
+  // const publicPages = ["/login", "/register"]
+  // const commonPages = ["/"]
+  // const authRequired = !publicPages.includes(to.path)
+  // if (authRequired && !accountStore.user) return router.push("/login")
+  // else if (!authRequired && accountStore.user) return router.push("/dashboard")
 
-  if (authRequired && !accountStore.user) return router.push("/login")
-  else if (!authRequired && accountStore.user) return router.push("/dashboard")
+  switch (to.path) {
+    case "/dashboard":
+      if (!accountStore.user) return router.push("/")
+      break
+    case "/login":
+      if (accountStore.user) return router.push("/dashboard")
+      break
+    case "/register":
+      if (accountStore.user) return router.push("/dashboard")
+      break
+    default:
+      break
+  }
 })
 
 export { router }

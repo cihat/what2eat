@@ -1,57 +1,17 @@
 <script>
-import { useAccountStore } from '@/store';
-import { message } from 'ant-design-vue';
-import { mapActions, mapState } from 'pinia';
+import Header from '@/components/Header.vue';
 
 export default {
   name: "App",
-  computed: {
-    ...mapState(useAccountStore, ["user"]),
-    selectedKeys() {
-      return [this.$route?.name]
-    },
-  },
-  methods: {
-    ...mapActions(useAccountStore, ["logout"]),
-    async doLogout() {
-      await this.logout()
-      message.success('Logout successful 🎉✅🎉')
-      this.$router.push("/")
-    },
-  },
+  components: {
+    Header
+  }
 }
 </script>
 <template>
-  <div id="app" :class="$route?.name">
+  <div id="app" :class="$route?.name ? $route?.name : 'default-view'">
     <a-layout class="layout" id="components-layout-demo-top" theme="light">
-      <a-layout-header>
-        <a-row type="flex" justify="space-between">
-          <a-col>
-            <div class="logo">
-              <router-link to="/">Boiler Plate</router-link><span>BETA</span>
-            </div>
-          </a-col>
-          <a-col class="navigation">
-            <a-menu v-if="user" theme="light" :selectedKeys="selectedKeys" mode="horizontal"
-              :style="{lineHeight: '64px'}" inlineCollapsed="false" ellipsize={false} class="nav-list">
-              <a-menu-item key="register">
-                <router-link :to="`/profile/${user._id}`" v-if="user.username">
-                  {{ user.username }}
-                </router-link>
-              </a-menu-item>
-              <a-menu-item v-if="user" key="logout" @click="doLogout">Log out</a-menu-item>
-            </a-menu>
-            <a-menu v-else mode="horizontal" class="nav-list">
-              <a-menu-item key="login">
-                <router-link to="/login">Log in</router-link>
-              </a-menu-item>
-              <a-menu-item key="register">
-                <router-link to="/register">Sign up</router-link>
-              </a-menu-item>
-            </a-menu>
-          </a-col>
-        </a-row>
-      </a-layout-header>
+      <Header />
       <a-layout-content>
         <router-view></router-view>
       </a-layout-content>
@@ -108,12 +68,13 @@ body {
   .ant-layout {
     min-height: 100vh;
   }
+}
 
-  .ant-layout-header {
-    background: white;
-    padding: 0 calc(calc(100% - 1088px) / 2);
-  }
-
+.default-view,
+.profile-view,
+.dashboard-view,
+.login-view,
+.register-view {
   .ant-layout-content {
     max-width: 1200px;
     align-self: center;
@@ -124,22 +85,27 @@ body {
       padding: 1em;
     }
   }
+}
 
-  .navigation {
-    flex-grow: 2;
+.profile-view {
+  
+}
 
-    .nav-list {
-      justify-content: flex-end;
+.home-view {
+  .ant-layout-content {
+    /* max-width: 1200px; */
+    align-self: center;
+    padding: 0;
+    width: 100%;
 
-      li {
-        span {
-          display: block;
-          a {
-            display: block;
-          }
-        }
-      }
+    @media (max-width: 576px) {
+      /* padding: 1em; */
     }
   }
+
+}
+
+.auth-view {
+  background-color: green !important;
 }
 </style>

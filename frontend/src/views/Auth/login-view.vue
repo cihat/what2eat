@@ -24,7 +24,7 @@ export default defineComponent({
       try {
         await accountStore.login(values)
         message.success('Login successful 🎉')
-        router.push({ path: '/' })
+        router.push({ path: '/dashboard' })
       } catch (error) {
         backendError.value = error?.response?.data?.message ?
           error?.response?.data?.message :
