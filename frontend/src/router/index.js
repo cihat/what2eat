@@ -25,6 +25,11 @@ const router = createRouter({
       component: import("../views/dashboard-view.vue"),
     },
     {
+      path: "/recommendation",
+      name: "recommendation-view",
+      component: import("../views/recommendation-view.vue"),
+    },
+    {
       path: "/profile/:id",
       name: "profile-view",
       component: import("../views/profile-view.vue"),

@@ -77,6 +77,6 @@
 		"xabikos"
 	],
 	"typescript.suggest.paths": false,
-	"javascript.suggest.paths": false,
+	"javascript.suggest.paths": true,
 	"rest-client.previewResponseInUntitledDocument": true
 }

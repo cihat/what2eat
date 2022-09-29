@@ -21,9 +21,7 @@ class UserService extends BaseService {
   }
 
   async updateUser(id, user) {
-    const updatedUser = await this.findByIdAndUpdate(id, user, {
-      new: true,
-    })
+    const updatedUser = await this.update(id, user)
 
     return updatedUser
   }
