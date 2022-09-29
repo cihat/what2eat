@@ -36,6 +36,11 @@ export default {
       <a-col class="navigation">
         <a-menu v-if="user" theme="light" :selectedKeys="selectedKeys" mode="horizontal" :style="{lineHeight: '64px'}"
           inlineCollapsed="false" ellipsize={false} class="nav-list">
+          <a-menu-item key="dashboard" class="menu-item">
+            <router-link :to="`/dashboard`" v-if="user">
+              Dashboard
+            </router-link>
+          </a-menu-item>
           <a-menu-item key="register" class="menu-item">
             <router-link :to="`/profile/${user._id}`" v-if="user.username">
               {{ user.username }}
