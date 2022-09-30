@@ -9,10 +9,9 @@ export default {
   name: 'search-bar',
   data() {
     return {
-      value: '',
       isLoading: false,
       newTag: '',
-      tags: this.ingredients
+      tags: null
     }
   },
   computed: {

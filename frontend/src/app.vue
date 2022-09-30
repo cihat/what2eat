@@ -1,10 +1,15 @@
 <script>
 import Header from '@/components/header.vue';
+import { router } from '@/router';
 
 export default {
   name: "App",
   components: {
     Header
+  },
+  created() {
+    console.log("App created");
+    console.log(router.currentRoute._value.name)
   }
 }
 </script>
@@ -75,6 +80,7 @@ body {
 .dashboard-view,
 .login-view,
 .register-view {
+.recommendation-view,
   .ant-layout-content {
     max-width: 1200px;
     align-self: center;
@@ -87,9 +93,7 @@ body {
   }
 }
 
-.profile-view {
-  
-}
+.profile-view {}
 
 .home-view {
   .ant-layout-content {
@@ -102,7 +106,19 @@ body {
       /* padding: 1em; */
     }
   }
+}
 
+.recommendation-view {
+  .ant-layout-content {
+    /* max-width: 1200px; */
+    align-self: center;
+    padding: 1em;
+    width: 100%;
+
+    @media (max-width: 576px) {
+      /* padding: 1em; */
+    }
+  }
 }
 
 .auth-view {
