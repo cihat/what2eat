@@ -1,3 +1,61 @@
+<script>
+import { router } from '@/router';
+import { useDinnerStore } from '@/store/dinner.store';
+import { CloseOutlined } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
+import { mapActions, mapState } from 'pinia';
+
+export default {
+  name: 'search-bar',
+  data() {
+    return {
+      value: '',
+      isLoading: false,
+      newTag: '',
+      tags: this.ingredients
+    }
+  },
+  computed: {
+    ...mapState(useDinnerStore, ['ingredients'])
+  },
+  created() {
+    this.tags = this.ingredients;
+  },
+  components: {
+    CloseOutlined
+  },
+  watch: {
+    tags: {
+      handler: function (newValue) {
+        this.setIngredients(newValue)
+      },
+      deep: true
+    }
+  },
+  methods: {
+    ...mapActions(useDinnerStore, ['setIngredients']),
+    addTag() {
+      if (!this.newTag) return
+
+      this.tags.push(this.newTag.trim());
+      this.newTag = '';
+    },
+    deleteTag(tag) {
+      this.tags.splice(this.tags.indexOf(tag), 1);
+    },
+    handleIngredients() {
+      if (this.tags?.length == 0) {
+        message.error('Please enter an ingredient');
+        return
+      }
+      this.isLoading = true;
+      // this.setIngredients(this.tags)
+      router.push({ name: 'recommendation-view' });
+    }
+  }
+}
+</script>
+
 <template>
   <div class="search-bar">
     <a-input placeholder="Please enter an ingredient" enter-button="Add" size='large' v-model:value="newTag"
@@ -20,44 +78,6 @@
   </div>
 </template>
 
-<script>
-import { router } from '@/router';
-import { CloseOutlined } from '@ant-design/icons-vue';
-import { message } from 'ant-design-vue';
-export default {
-  name: 'search-bar',
-  data() {
-    return {
-      value: '',
-      isLoading: false,
-      newTag: '',
-      tags: ['Biber', 'Sogan', 'Domates', 'Yumurta']
-    }
-  },
-  components: {
-    CloseOutlined
-  },
-  methods: {
-    addTag() {
-      if (!this.newTag) return
-
-      this.tags.push(this.newTag);
-      this.newTag = '';
-    },
-    deleteTag(tag) {
-      this.tags.splice(this.tags.indexOf(tag), 1);
-    },
-    handleIngredients() {
-      if (this.tags?.length == 0) {
-        message.error('Please enter an ingredient');
-        return
-      }
-      this.isLoading = true;
-      router.push({ name: 'recommendation-view', query: { ingredients: this.tags } });
-    }
-  }
-}
-</script>
 <style lang="scss" scoped>
 .search-bar {
 
@@ -70,6 +90,12 @@ export default {
     overflow-y: scroll;
 
     button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
       &:hover {
         background-color: #ff4d4f;
         border-color: #ff4d4f;

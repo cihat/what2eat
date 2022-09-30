@@ -1,14 +1,19 @@
 <script>
+import { router } from '@/router';
+import { useDinnerStore } from '@/store/dinner.store';
+import { message } from 'ant-design-vue';
+import { mapState } from 'pinia';
 export default {
   name: "recommendation-view",
+  data() { },
+  computed: {
+    ...mapState(useDinnerStore, ['ingredients', 'getIngredients'])
+  },
   components: {
   },
-  data() { },
   created() {
-    const ingredients = this.$route.query.ingredients;
-    console.log(ingredients);
-    if (ingredients?.length == 0 || ingredients == undefined) {
-      this.$router.push('/dashboard');
+    if (!this.ingredients || this.ingredients.length == 0) {
+      router.push({ name: "dashboard-view" });
       message.error('Please enter an ingredient');
     }
   }
@@ -19,7 +24,7 @@ export default {
   <div class="recommendation">
     <h1>Recommendation</h1>
     <span>
-      {{ $route.query.ingredients }}
+      {{ this.ingredients }}
     </span>
   </div>
 </template>
