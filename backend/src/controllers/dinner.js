@@ -38,8 +38,18 @@ exports.deleteDinner = async (req, res, next) => {
 }
 
 exports.createDinner = async (req, res, next) => {
+  console.log('req.body', req.body)
   try {
     const dinner = await dinnerService.createDinner(req.body)
+    res.json(dinner)
+  } catch (e) {
+    next(e)
+  }
+}
+
+exports.recommendDinner = async (req, res, next) => {
+  try {
+    const dinner = await dinnerService.recommendDinner()
     res.json(dinner)
   } catch (e) {
     next(e)

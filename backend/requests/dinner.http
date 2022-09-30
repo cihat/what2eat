@@ -1,0 +1,38 @@
+POST http://localhost:3000/api/dinner HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Menemen",
+    "description": "Turkish scrambled eggs with tomatoes and peppers",
+    "ingredients": [
+        "6336e13a84ae3388d6efcf7e",
+        "6336e11884ae3388d6efcf7c",
+        "6336e14884ae3388d6efcf80",
+        "6336e15784ae3388d6efcf82",
+        "6336e16a84ae3388d6efcf84",
+        "6336e17484ae3388d6efcf86",
+        "6336e18284ae3388d6efcf88"
+    ],
+    "instructions": [
+        "Heat olive oil in a pan",
+        "Add onions and peppers",
+        "Add tomatoes",
+        "Add salt and pepper",
+        "Add eggs",
+        "Stir until eggs are cooked"
+    ],
+    "tags": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "turkish",
+        "eggs"
+    ],
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/menemen.jpg?itok=Z8Y8Z7ZJ",
+    "source": "https://www.bbcgoodfood.com/recipes/menemen",
+    "servings": 2,
+    "totalTime": 20,
+    "calories": 300
+}
+
+###

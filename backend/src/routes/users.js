@@ -69,7 +69,7 @@ router.post(
   '/session',
   // rateLimiter({ points: 10, duration: 30 * 60 }),
   preventLoginForLoggedInUsers,
-  userController.isEmailVerified,
+  // userController.isEmailVerified,
   passport.authenticate('local', {
     failWithError: true,
   }),

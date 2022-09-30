@@ -17,6 +17,8 @@ const { mongooseConnection } = require('./database-connection')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
+const dinnerRouter = require('./routes/dinner')
+const ingredientRouter = require('./routes/ingredient')
 
 const app = express()
 
@@ -73,6 +75,8 @@ app.all('*', (req, res, next) => {
 
 app.use('/api/', indexRouter)
 app.use('/api/account', usersRouter)
+app.use('/api/dinner', dinnerRouter)
+app.use('/api/ingredient', ingredientRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -82,19 +86,15 @@ app.use((req, res, next) => {
 app.use(errors())
 
 // error handler
-app.use((err, req, res) => {
-  const error = {
-    status: err.status || 500,
-    message: err.message,
-  }
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-  if (req.app.get('env') === 'development') {
-    error.stack = err.stack
-  }
+  console.log(err)
 
-  res.status(error.status)
-
-  res.send(error)
+  res.status(err.status || 500)
+  res.send(req.app.get('env') === 'development' ? { stack: err.stack, message: err.message } : { message: err.message })
 })
 
 module.exports = app

@@ -24,11 +24,11 @@ const dinnerSchema = new Schema({
     minlength: 2,
     maxlength: 256,
   },
-  restaurant: {
-    type: Schema.Types.ObjectId,
-    ref: 'Restaurant',
-    autopopulate: true,
-  },
+  // restaurant: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Restaurant',
+  //   autopopulate: true,
+  // },
   ingredients: [
     {
       type: Schema.Types.ObjectId,
@@ -36,12 +36,17 @@ const dinnerSchema = new Schema({
       autopopulate: true,
     },
   ],
-  recipe: [
+  instructions: [
     {
       type: String,
     },
   ],
-  numberOfServings: Number,
+  tag: [{ type: String }],
+  image: String,
+  servings: Number,
+  calories: Number,
+  totalTime: Number,
+  source: String,
 })
 
 dinnerSchema.plugin(autopopulate)
