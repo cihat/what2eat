@@ -25,6 +25,23 @@ class DinnerService extends BaseService {
 
     return newDinner
   }
+
+  async recommendDinner({ ingredients }) {
+    const dinners = await this.load()
+    const dinnersWithIngredients = dinners.filter(dinner => {
+      return dinner.ingredients.every(ingredient => {
+        return ingredients.includes(ingredient)
+      })
+    })
+
+    const otherRecommend = dinners.filter(dinner => {
+      return dinner.ingredients.some(ingredient => {
+        return ingredients.includes(ingredient)
+      })
+    })
+
+    return [...dinnersWithIngredients, ...otherRecommend]
+  }
 }
 
 module.exports = new DinnerService(Dinner)

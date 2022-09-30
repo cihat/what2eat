@@ -2,8 +2,8 @@ const BaseService = require('./base-service')
 const User = require('../models/user')
 
 class UserService extends BaseService {
-  async findUsers(query) {
-    const users = await this.load(query)
+  async findUsers() {
+    const users = await this.load()
 
     return users
   }
